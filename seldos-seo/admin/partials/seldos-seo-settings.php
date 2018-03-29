@@ -58,7 +58,7 @@
                                 <div class="col-5">
                                     <div class="formElement labelUp">
                                         <label for=""><?=__('GOOGLE Search Console Code','seldos-seo')?></label>
-                                        <input type="text" name="googleSCCode" placeholder="UA-XXXXXXXX-X" value="<?=$googleSCCode?>"/>
+                                        <input type="text" name="googleSCCode" class="googleSCCode" placeholder="UA-XXXXXXXX-X" value="<?=$googleSCCode?>"/>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                 <div class="col-12">
                                     <div class="formElement labelUp">
                                         <label for=""><?=__('YANDEX Metrica Code','seldos-seo')?></label>
-                                        <input type="text" name="yandexMetrica" placeholder="UA-XXXXXXXX-X" value="<?=$yandexMetrica?>"/>
+                                        <input type="text" name="yandexMetrica" class="yandexMetrica" placeholder="UA-XXXXXXXX-X" value="<?=$yandexMetrica?>"/>
                                     </div>
                                 </div>
                             </div>

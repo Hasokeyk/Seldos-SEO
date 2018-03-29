@@ -43,5 +43,49 @@ jQuery(function( $ ) {
         $(this).addClass('active');
     });
     //TABS
+    
+    //SC META
+    $('.googleSCCode').on('keyup',function(){
 
+        const regex = /<meta name="google-site-verification" content="(.*?)" \/>/g;
+        const str = $(this).val();
+        let m;
+
+        while ((m = regex.exec(str)) !== null) {
+            // This is necessary to avoid infinite loops with zero-width matches
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+            
+            // The result can be accessed through the `m`-variable.
+            m.forEach((match, groupIndex) => {
+                $(this).val(match);
+            });
+        }
+        
+    });
+    //SC META
+    
+    //YANDEX METRİCA
+    $('.yandexMetrica').on('keyup',function(){
+        
+        const regex = /id:(.*?),/g;
+        const str = $(this).val();
+        let m;
+
+        while ((m = regex.exec(str)) !== null) {
+            // This is necessary to avoid infinite loops with zero-width matches
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+            
+            // The result can be accessed through the `m`-variable.
+            m.forEach((match, groupIndex) => {
+                $(this).val(match);
+            });
+        }
+        
+    });
+    //SC META
+    
 });

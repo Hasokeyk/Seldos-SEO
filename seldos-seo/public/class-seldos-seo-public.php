@@ -51,7 +51,19 @@ class Seldos_Seo_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+        
+        if(!empty(get_option( 'googleAnalyticCode' )) and strlen(get_option( 'googleAnalyticCode' )) >= 10){
+            add_action('wp_footer', [$this,'googleAnalyticCode']);
+        }
+        
+        if(!empty(get_option( 'googleSCCode' )) and strlen(get_option( 'googleSCCode' )) >= 10){
+            add_action('wp_head', [$this,'googleSCCode']);
+        }
+        if(!empty(get_option( 'yandexMetrica' )) and strlen(get_option( 'yandexMetrica' )) >= 6){
+            add_action('wp_footer', [$this,'yandexMetrica']);
+        }
+        
+        
 	}
 
 	/**
@@ -99,5 +111,39 @@ class Seldos_Seo_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seldos-seo-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+    
+    public function googleAnalyticCode(){
+    ?>
+    <!-- SELDOS SEO-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22483688-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', '<?=get_option( 'googleAnalyticCode' )?>');
+    </script>
+    <!-- SELDOS SEO-->
+    <?php
+    }
+    
+    public function googleSCCode(){
+    ?>
+    <!-- SELDOS SEO-->
+    <meta name="google-site-verification" content="<?=get_option( 'googleSCCode' )?>" />
+    <!-- SELDOS SEO-->
+    <?php
+    }
+    
+    public function yandexMetrica(){
+    ?>
+    <!-- SELDOS SEO-->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter<?=get_option( 'yandexMetrica' )?> = new Ya.Metrika({ id:<?=get_option( 'yandexMetrica' )?>, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/<?=get_option( 'yandexMetrica' )?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- SELDOS SEO-->
+    <?php
+    }
+    
 }
