@@ -29,7 +29,7 @@
                    <?=__('General','seldos-seo')?>
                 </div>
                 <div class="tab">
-                   <?=__('Title','seldos-seo')?>
+                   <?=__('Titles','seldos-seo')?>
                 </div>
                 <div class="tab">
                    <?=__('Image','seldos-seo')?>
@@ -90,9 +90,37 @@
                 <div class="tabContent">
                     <form action="" method="post">
                         <div class="col-12">
-                            <div class="formElement labelUp">
-                                <label for=""><?=__('GOOGLE ANALYTIC CODE','seldos-seo')?></label>
-                                <input type="text" name="googleAnalyticCode" placeholder="UA-XXXXXXXX-X" />
+                        
+                            <div class="col-12">
+                                <?php 
+                                    $post_types = get_post_types('','names');
+                                    unset($post_types['attachment']);
+                                    unset($post_types['revision']);
+                                    unset($post_types['nav_menu_item']);
+                                    unset($post_types['custom_css']);
+                                    unset($post_types['customize_changeset']);
+                                    unset($post_types['oembed_cache']);
+                                    foreach ( $post_types as $post_type ) {
+                                       $a = get_post_type_object($post_type);
+                                ?>
+                                <div class="tabContentHead">
+                                    <?=$a->label?>
+                                </div>
+                                <div class="col-10">
+                                    <div class="formElement labelUp">
+                                        <label for=""><?=$a->label?> <?=__('Title','seldos-seo');?></label>
+                                        <input type="text" name="<?=$post_type?>_title" placeholder="%postTitle% %sep% %sitename%" value="<?=get_option( $post_type.'_title' )?>"/>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="formElement labelUp">
+                                        <label for=""><?=$a->label?> <?=__('Description','seldos-seo');?></label>
+                                        <input type="text" name="<?=$post_type?>_desc" placeholder="%postDesc%" value="<?=get_option( $post_type.'_desc' )?>"/>
+                                    </div>
+                                </div>
+                                <?php
+                                    }
+                                ?>
                             </div>
                             
                             <hr />
