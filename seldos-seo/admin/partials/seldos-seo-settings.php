@@ -10,6 +10,22 @@
         update_option( 'googleSCCode', $googleSCCode,false);
         update_option( 'yandexMetrica', $yandexMetrica,false);
         
+    }else if($this->postControl($step1R) and  $step == 'titles'){
+        
+        $post_types = get_post_types('','names');
+        unset($post_types['attachment']);
+        unset($post_types['revision']);
+        unset($post_types['nav_menu_item']);
+        unset($post_types['custom_css']);
+        unset($post_types['customize_changeset']);
+        unset($post_types['oembed_cache']);
+        foreach($post_types as $post_type){
+            $a = get_post_type_object($post_type);
+            $postName = (string) $a->name;
+            update_option( $postName.'_title', ${$postName.'_title'},false);
+            update_option( $postName.'_desc',  ${$postName.'_desc'},false);
+        }
+        
     }
     
     $googleAnalyticCode = empty(get_option( 'googleAnalyticCode' ))?'':get_option( 'googleAnalyticCode' );
@@ -89,6 +105,7 @@
                 
                 <div class="tabContent">
                     <form action="" method="post">
+                        <input type="hidden" name="step" value="titles" />
                         <div class="col-12">
                         
                             <div class="col-12">
@@ -109,13 +126,13 @@
                                 <div class="col-10">
                                     <div class="formElement labelUp">
                                         <label for=""><?=$a->label?> <?=__('Title','seldos-seo');?></label>
-                                        <input type="text" name="<?=$post_type?>_title" placeholder="%postTitle% %sep% %sitename%" value="<?=get_option( $post_type.'_title' )?>"/>
+                                        <input type="text" name="<?=$post_type?>_title" placeholder="%postTitle% %sep% %sitename%" value="<?=get_option( $a->name.'_title' )?get_option( $a->name.'_title' ):'%postTitle% %sep% %sitename%'?>"/>
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="formElement labelUp">
                                         <label for=""><?=$a->label?> <?=__('Description','seldos-seo');?></label>
-                                        <input type="text" name="<?=$post_type?>_desc" placeholder="%postDesc%" value="<?=get_option( $post_type.'_desc' )?>"/>
+                                        <input type="text" name="<?=$post_type?>_desc" placeholder="%postDesc%" value="<?=get_option( $a->name.'_desc' )?get_option( $a->name.'_desc' ):'%postDesc%'?>"/>
                                     </div>
                                 </div>
                                 <?php

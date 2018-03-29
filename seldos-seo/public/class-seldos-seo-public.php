@@ -63,6 +63,8 @@ class Seldos_Seo_Public {
             add_action('wp_footer', [$this,'yandexMetrica']);
         }
         
+        add_action('wp_title', [$this,'titleChange']);
+        add_filter('the_title', [$this,'descChange']);
         
 	}
 
@@ -144,6 +146,33 @@ class Seldos_Seo_Public {
     <!-- /Yandex.Metrika counter -->
     <!-- SELDOS SEO-->
     <?php
+    }
+    
+    public function titleChange($title){
+        
+        if(is_single()){
+            $t = get_option( 'post_title' );
+            echo trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
+        }else if(is_page()){
+            $t = get_option( 'page_title' );
+            echo trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
+        }
+    }
+    
+    public function descChange($desc){
+        //print_r(get_post());
+        echo '<!-- SELDOS SEO -->'."\n";
+        if(is_single()){
+            $t = get_option( 'post_title' );
+            $t = trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$desc,'-',get_bloginfo('name'),''],$t));
+            echo '<meta name="description"  content="'.$t.'" />';
+        }else if(is_page()){
+            $t = get_option( 'page_title' );
+            $t = trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$desc,'-',get_bloginfo('name'),''],$t));
+            echo '<meta name="description"  content="'.$t.'" />';
+        }
+        echo "\n".'<!-- SELDOS SEO -->'."\n";
+        
     }
     
 }

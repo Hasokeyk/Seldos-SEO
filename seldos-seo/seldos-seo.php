@@ -16,7 +16,7 @@
  * Plugin Name:       Seldos SEO
  * Plugin URI:        www.seldos.com.tr
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.2.0
+ * Version:           1.2.4
  * Author:            Hasan Yüksektepe ♥ Tuğçe Konuk
  * Author URI:        www.hayatikodla.com
  * License:           GPL-2.0+
