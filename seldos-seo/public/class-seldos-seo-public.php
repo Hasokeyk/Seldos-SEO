@@ -63,8 +63,9 @@ class Seldos_Seo_Public {
             add_action('wp_footer', [$this,'yandexMetrica']);
         }
         
-        add_action('wp_title', [$this,'titleChange']);
-        add_filter('the_title', [$this,'descChange']);
+        add_action('wp_title', array(&$this,'titleChange'));
+        add_action( 'wp_head', array( $this, 'descChange' ) );
+        //add_filter('the_title', array(&$this,'titleChange'));
         
 	}
 
@@ -152,11 +153,13 @@ class Seldos_Seo_Public {
         
         if(is_single()){
             $t = get_option( 'post_title' );
-            echo trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
+            return trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
         }else if(is_page()){
             $t = get_option( 'page_title' );
-            echo trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
+            return trim(str_replace(['%postTitle%','%sep%','%sitename%','&raquo;'],[$title,'-',get_bloginfo('name'),''],$t));
         }
+        
+        return $title;
     }
     
     public function descChange($desc){
@@ -174,5 +177,7 @@ class Seldos_Seo_Public {
         echo "\n".'<!-- SELDOS SEO -->'."\n";
         
     }
+    
+    
     
 }

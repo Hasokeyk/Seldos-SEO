@@ -136,4 +136,10 @@ hr{
     background: #f3f3f3;
     border:  none;
 }
+.postbox{
+    float:left; width:100%; box-sizing:border-box;
+}
+#poststuff .inside{
+    float:left; width:100%; box-sizing:border-box;
+}
 /* OTHER */

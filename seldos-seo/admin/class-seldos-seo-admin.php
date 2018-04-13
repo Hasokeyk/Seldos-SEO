@@ -53,7 +53,10 @@ class Seldos_Seo_Admin {
 		$this->version = $version;
         
         add_action( 'admin_menu', array(&$this, 'register_seldos_seo_menu'));
-        
+		remove_action('template_redirect', 'redirect_canonical');
+		add_action( 'template_redirect', array(&$this, 'sslRedirect'));
+        add_action( 'add_meta_boxes', array(&$this, 'seldos_seo_add_meta_box') );
+        add_action( 'save_post', array(&$this, 'seldos_seo_save') );
 	}
     
     function register_seldos_seo_menu(){
@@ -155,5 +158,98 @@ class Seldos_Seo_Admin {
 		}
 		
 	}
+	
+	function sslRedirect(){
+		
+		$getUrl = parse_url($_SERVER['SCRIPT_URI']);
+		$setUrl = parse_url(get_bloginfo('url'));
+		
+		if(strstr($getUrl['path'],'index.php')){
+			wp_redirect( str_replace([$getUrl['scheme'],$getUrl['host'],'index.php'],[$setUrl['scheme'],$setUrl['host'],''],$_SERVER['SCRIPT_URI']), 301 );
+		}else if ( !is_ssl() and get_option( 'sslActive' ) == 'true') {
+			
+			if(strstr($getUrl['scheme'],$setUrl['scheme']) === false){
+				wp_redirect( str_replace([$getUrl['scheme'],$getUrl['host']],[$setUrl['scheme'],$setUrl['host']],$_SERVER['SCRIPT_URI']), 301 );
+			}
+			
+		}else if(strstr($getUrl['host'],$setUrl['host']) === false){
+			wp_redirect( str_replace([$getUrl['scheme'],$getUrl['host']],[$setUrl['scheme'],$setUrl['host']],$_SERVER['SCRIPT_URI']), 301 );
+		}
+	}
+    
+    function seldos_seo_get_meta( $value ) {
+        global $post;
 
+        $field = get_post_meta( $post->ID, $value, true );
+        if ( ! empty( $field ) ) {
+            return is_array( $field ) ? stripslashes_deep( $field ) : stripslashes( wp_kses_decode_entities( $field ) );
+        } else {
+            return false;
+        }
+    }
+
+    function seldos_seo_add_meta_box() {
+        
+        $post_types = get_post_types('','names');
+        unset($post_types['attachment']);
+        unset($post_types['revision']);
+        unset($post_types['nav_menu_item']);
+        unset($post_types['custom_css']);
+        unset($post_types['customize_changeset']);
+        unset($post_types['oembed_cache']);
+        foreach ( $post_types as $post_type ) {
+            
+            add_meta_box(
+                'seldos_seo-seldos-seo',
+                __( 'Seldos SEO Settings', 'seldos-seo' ),
+                array(&$this,'seldos_seo_html'),
+                $post_type,
+                'advanced',
+                'core'
+            );
+           
+        }        
+    }
+
+    function seldos_seo_html( $post) {
+        wp_nonce_field( '_seldos_seo_nonce', 'seldos_seo_nonce' ); 
+    ?>
+        <div class="searchEnginePreview">
+            
+            <div class="tabs">
+                <div class="tab active">GOOGLE</div>
+                <div class="tab">YANDEX</div>
+            </div>
+            
+            <div class="tabsContent">
+                <div class="tabContent">
+                    
+                </div>
+                <div class="tabContent">
+                    Yandex
+                </div>
+            </div>
+            
+        </div>
+    <?php
+    }
+
+    function seldos_seo_save( $post_id ) {
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+        if ( ! isset( $_POST['seldos_seo_nonce'] ) || ! wp_verify_nonce( $_POST['seldos_seo_nonce'], '_seldos_seo_nonce' ) ) return;
+        if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+        if ( isset( $_POST['seldos_seo_title'] ) )
+            update_post_meta( $post_id, 'seldos_seo_title', esc_attr( $_POST['seldos_seo_title'] ) );
+        if ( isset( $_POST['seldos_seo_description'] ) )
+            update_post_meta( $post_id, 'seldos_seo_description', esc_attr( $_POST['seldos_seo_description'] ) );
+    }
+    
+
+    /*
+        Usage: seldos_seo_get_meta( 'seldos_seo_title' )
+        Usage: seldos_seo_get_meta( 'seldos_seo_description' )
+    */
+
+    
 }
