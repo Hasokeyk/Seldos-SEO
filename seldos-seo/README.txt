@@ -11,7 +11,7 @@ With this plugin you can hide your content.
 
 == Description ==
 
-With this plugin, you can ask your visitors to share their social accounts so they can see your content.
+With this Add-on you can make Seo Settings of Your Wordpress Website Easily And Quickly
 
 * Optional Exclude logged-in users
 * No ADS
