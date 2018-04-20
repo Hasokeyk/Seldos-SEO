@@ -54,7 +54,7 @@ class Seldos_Seo_Admin {
         
         add_action( 'admin_menu', array(&$this, 'register_seldos_seo_menu'));
 		remove_action('template_redirect', 'redirect_canonical');
-		add_action( 'template_redirect', array(&$this, 'sslRedirect'));
+		add_action( 'template_redirect', array(&$this, 'seldos_sslRedirect'));
         add_action( 'add_meta_boxes', array(&$this, 'seldos_seo_add_meta_box') );
         add_action( 'save_post', array(&$this, 'seldos_seo_save') );
 	}
@@ -62,9 +62,9 @@ class Seldos_Seo_Admin {
     function register_seldos_seo_menu(){
         add_menu_page(__('Seldos SEO','seldos'), __('Seldos SEO','seldos'), 'manage_options', 'seldos-seo-settings',array(&$this, 'seldos_seo_settings'));
         add_submenu_page( 'seldos-seo-settings', __('Settings','seldos'), __('Settings','seldos'), 'manage_options', 'seldos-seo-settings');
-        add_submenu_page( 'seldos-seo-settings', __('SEO Appearance','seldos'), __('SEO Appearance','seldos'), 'manage_options', 'seldos-seo-apperance',array(&$this, 'seldos_seo_apperance'));
-        add_submenu_page( 'seldos-seo-settings', __('SEO Error Page','seldos'), __('SEO Error Page','seldos'), 'manage_options', 'seldos-seo-error-page',array(&$this, 'seldos_seo_error_page'));
-        add_submenu_page( 'seldos-seo-settings', __('SEO Redirects','seldos'), __('SEO Redirects','seldos'), 'manage_options', 'seldos-seo-redirects',array(&$this, 'seldos_seo_redirects'));
+        //add_submenu_page( 'seldos-seo-settings', __('SEO Appearance','seldos'), __('SEO Appearance','seldos'), 'manage_options', 'seldos-seo-apperance',array(&$this, 'seldos_seo_apperance'));
+        //add_submenu_page( 'seldos-seo-settings', __('SEO Error Page','seldos'), __('SEO Error Page','seldos'), 'manage_options', 'seldos-seo-error-page',array(&$this, 'seldos_seo_error_page'));
+        //add_submenu_page( 'seldos-seo-settings', __('SEO Redirects','seldos'), __('SEO Redirects','seldos'), 'manage_options', 'seldos-seo-redirects',array(&$this, 'seldos_seo_redirects'));
     }
     
     function seldos_seo_settings(){
@@ -128,7 +128,7 @@ class Seldos_Seo_Admin {
 
 	}
     
-    function postSecurty($post){
+    function seldos_postSecurty($post){
 		global $mysqli;
 		$degerler = array();
 		foreach($post as $p => $d){
@@ -139,7 +139,7 @@ class Seldos_Seo_Admin {
 		return $degerler;
 	}
 	
-	function postControl($post){
+	function seldos_postControl($post){
 		
 		$kontrol = 0;
 		foreach($post as $parametre){
@@ -159,7 +159,7 @@ class Seldos_Seo_Admin {
 		
 	}
 	
-	function sslRedirect(){
+	function seldos_sslRedirect(){
 		
 		$getUrl = parse_url($_SERVER['SCRIPT_URI']);
 		$setUrl = parse_url(get_bloginfo('url'));

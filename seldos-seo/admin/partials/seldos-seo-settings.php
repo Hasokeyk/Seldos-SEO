@@ -1,16 +1,16 @@
 <?php 
 
-    $post = $this->postSecurty($_POST);
+    $post = $this->seldos_postSecurty($_POST); 
 	extract($post);
     
     $step1R = ['step'];
-	if($this->postControl($step1R) and  $step == 'general'){
+	if($this->seldos_postControl($step1R) and  $step == 'general'){
         
         update_option( 'googleAnalyticCode', $googleAnalyticCode,false);
         update_option( 'googleSCCode', $googleSCCode,false);
         update_option( 'yandexMetrica', $yandexMetrica,false);
         
-    }else if($this->postControl($step1R) and  $step == 'titles'){
+    }else if($this->seldos_postControl($step1R) and  $step == 'titles'){
         
         $post_types = get_post_types('','names');
         unset($post_types['attachment']);
@@ -148,6 +148,10 @@
                             
                         </div>
                     </form>
+                </div>
+				
+                <div class="tabContent">
+                    Coming Soon
                 </div>
                 
             </div>
