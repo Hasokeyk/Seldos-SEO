@@ -1,0 +1,145 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.seldosseo{
+    font-family:arial,sans-serif;
+}.seldosseo .pageTitle{
+    padding:10px 0px 20px;
+}
+ 
+/* TABS */
+.tabs{
+    float:left;
+    width:100%;
+    position: relative;
+    z-index: 9;
+}.tabs .tab{
+    float:left;
+    padding:10px 20px;
+    font-size:14px;
+    cursor:pointer;
+    border-radius:5px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+    font-size: 18px;
+    color: #000;
+}.tabs .tab.active{
+    background:#fff;
+    border:1px solid #101010;
+    border-bottom:none;
+    color: #007fff;
+}
+.tabsContent{
+    float:left;
+    width:100%;
+    background:#fff;
+    padding:10px;
+    box-sizing:border-box;
+    border: 1px solid #000;
+    margin-top: -1px;
+}.tabsContent .tabContentHead{
+    float:left;
+    width: calc(100% - 30px);
+    border-bottom: 1px solid #eaeaea;
+    font-size: 16px;
+    padding: 10px 0px;
+    font-weight: 600;
+    margin: 0px 15px;
+    color: #007fff;
+}
+/* TABS */
+
+/* FORM ELEMENTS */
+.formElement{
+    float:left;
+    width: calc(100% - 30px);
+    margin-bottom:15px;
+    margin: 0px 15px 15px;
+}.formElement label{
+    float:left;
+    padding: 10px 0px;
+    font-weight: bold;
+    margin: 0px;
+}.formElement.labelUp label{
+    float:left;
+    width:100%;
+}.formElement label + input{
+    float:left;
+    padding: 10px;
+}.formElement.labelUp input[type="text"]{
+    float:left;
+    width:100%;
+    margin: 0px;
+}.formElement .radioButton{
+    float:left;
+    margin-right: 15px;
+}.formElement .radioButton input[type="radio"]{
+    float:left;
+    margin-top: 10px;
+}.formElement .radioButton label{
+    float:left;
+    margin: 0px 10px 0px 4px;
+}.formElement .checkbox{
+    float:left;
+    margin-right: 15px;
+}.formElement .checkbox input[type="checkbox"]{
+    float:left;
+    margin-top: 10px;
+}.formElement .checkbox label{
+    float:left;
+    margin: 0px 10px 0px 4px;
+}
+.buttons{
+    float:left; width:100%;
+}
+.buttons button{
+    float:left;
+    padding: 10px 20px;
+    border:none;
+    background:#007fff;
+    color: #fff;
+    border-radius: 5px; cursor:pointer;
+}
+/* FORM ELEMENTS */
+
+/* GRID */
+.col-10{
+    float:left; width:calc(100% / 1);
+}.col-9{
+    float:left; width:calc(100% / 1.3);
+}.col-8{
+    float:left; width:calc(100% / 1.5);
+}.col-7{
+    float:left; width:calc(100% / 1.7);
+}.col-6{
+    float:left; width:calc(100% / 1.9);
+}.col-5{
+    float:left; width:calc(100% / 2);
+}.col-4{
+    float:left; width:calc(100% / 2.3);
+}.col-3{
+    float:left; width:calc(100% / 2.5);
+}.col-2{
+    float:left; width:calc(100% / 2.7);
+}.col-1{
+    float:left; width:calc(100% / 3);
+}
+/* GRID */
+
+/* OTHER */
+hr{
+    float:left;
+    width:100%;
+    height: 1px;
+    background: #f3f3f3;
+    border:  none;
+}
+.postbox{
+    float:left; width:100%; box-sizing:border-box;
+}
+#poststuff .inside{
+    float:left; width:100%; box-sizing:border-box;
+}
+/* OTHER */
